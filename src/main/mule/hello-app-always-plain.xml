@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0965928e-ae8e-40a8-bee5-52f6a9096730" >
+		<http:listener-connection host="0.0.0.0" port="9081" />
+	</http:listener-config>
+	<flow name="hello-app-always-plainFlow" doc:id="d34a4d40-8598-4928-9102-41a04f2c2a2c" >
+		<http:listener doc:name="Listener" doc:id="be441c22-4972-49bb-b2a7-854ded238133" config-ref="HTTP_Listener_config" path="/chk"/>
+		<ee:transform doc:name="Transform Message" doc:id="a27bdc12-d15e-419c-bb37-0aba0423976e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"hello rmau endahyaa idhi"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="8933d15e-448b-4fd0-a87c-3e8ffecf9b48"/>
+	</flow>
+</mule>
